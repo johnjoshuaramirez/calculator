@@ -1,32 +1,37 @@
 const container = document.querySelector(".container");
 const buttons = document.querySelector(".button-group");
-const display = document.querySelector(".display");
+const history = document.querySelector(".history");
+const current = document.querySelector(".current");
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 
-let displayValue = "";
+let value = "";
 let firstNum = "";
 let secondNum = "";
 let operator = "";
 
 function add(num1, num2) {
 	const result = parseInt(num1) + parseInt(num2);
-	console.log(result);
+	current.innerText = result;
+	console.log(current);
 }
 
 function subtract(num1, num2) {
 	const result = parseInt(num1) - parseInt(num2);
-	console.log(result);
+	current.innerText = result;
+	console.log(current);
 }
 
 function multiply(num1, num2) {
 	const result = parseInt(num1) * parseInt(num2);
-	console.log(result);
+	current.innerText = result;
+	console.log(current);
 }
 
 function divide(num1, num2) {
 	const result = parseInt(num1) / parseInt(num2);
-	console.log(result);
+	current.innerText = result;
+	console.log(current);
 }
 
 function operate(operator, num1, num2) {
@@ -43,28 +48,29 @@ function operate(operator, num1, num2) {
 
 container.addEventListener("click", e => {
 	if (e.target.classList.contains("number")) {
-		display.innerText += e.target.innerText;
-		displayValue += e.target.innerText;
-		console.log(displayValue);
+		value += e.target.innerText;
+		current.innerText = value;
+		console.log(value);
 	}
 });
 
 container.addEventListener("click", e => {
 	if (e.target.classList.contains("operator")) {
-		firstNum = displayValue;
+		firstNum = value;
 		operator = e.target.innerText;
-		displayValue = "";
-		display.innerText = "";
+		value = "";
+		history.innerText = `${firstNum} ${operator}`;
 		console.log("firstNum " + firstNum);
-		console.log("secondNum " + secondNum);
-		console.log("operator " + operator);
+		console.log("displayValue " + value);
 	}
 });
 
 container.addEventListener("click", e => {
 	if (e.target.classList.contains("equals")) {
-		secondNum = displayValue;
-      console.log("secondNum " + secondNum);
+		secondNum = value;
+		history.innerText = `${firstNum} ${operator} ${secondNum} ${"="}`;
+
+		console.log("secondNum " + secondNum);
 		operate(operator, firstNum, secondNum);
 	}
 });
