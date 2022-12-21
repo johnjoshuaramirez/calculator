@@ -80,7 +80,7 @@ container.addEventListener("click", e => {
 
 container.addEventListener("click", e => {
 	if (e.target.classList.contains("equals")) {
-		secondNum = value;
+		secondNum = currentValue;
 		history.innerText = `${firstNum} ${operator} ${secondNum} ${"="}`;
 		operate(operator, parseInt(firstNum), parseInt(secondNum));
 	}
