@@ -3,6 +3,7 @@ const buttons = document.querySelector(".button-group");
 const history = document.querySelector(".history");
 const current = document.querySelector(".current");
 const del = document.querySelector(".del");
+const clear = document.querySelector(".clear");
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 
@@ -77,8 +78,11 @@ container.addEventListener("click", e => {
 });
 
 del.addEventListener("click", () => {
-   const current = document.querySelector(".current");
    current.innerText = current.innerText.slice(0, -1);
    value = current.innerText;
-   console.log(value);
+});
+
+clear.addEventListener("click", () => {
+   current.innerText = "";
+   value = current.innerText;
 });
