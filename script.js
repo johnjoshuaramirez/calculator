@@ -16,7 +16,7 @@ let secondNum = "";
 let operator = "";
 
 function add(num1, num2) {
-	const result = parseInt(num1) + parseInt(num2);
+	const result = num1 + num2;
    currentValue = result;
 	currentDisplay.innerText = currentValue;
 	console.log(currentValue);
@@ -57,15 +57,6 @@ function operate(operator, num1, num2) {
          divide(num1, num2);
       break
    }
-	// if (operator === "+") {
-	// 	add(num1, num2);
-	// } else if (operator === "-") {
-	// 	subtract(num1, num2);
-	// } else if (operator === "*") {
-	// 	multiply(num1, num2);
-	// } else if (operator === "/") {
-	// 	divide(num1, num2);
-	// }
 }
 
 container.addEventListener("click", e => {
@@ -81,7 +72,7 @@ container.addEventListener("click", e => {
 		firstNum = currentValue;
 		operator = e.target.innerText;
 		currentValue = "";
-      currentDisplay = currentValue;
+      currentDisplay.innerText = currentValue;
       historyValue = `${firstNum} ${operator}`;
 		historyDisplay.innerText = historyValue;
 	}
@@ -91,7 +82,7 @@ container.addEventListener("click", e => {
 	if (e.target.classList.contains("equals")) {
 		secondNum = value;
 		history.innerText = `${firstNum} ${operator} ${secondNum} ${"="}`;
-		operate(operator, firstNum, secondNum);
+		operate(operator, parseInt(firstNum), parseInt(secondNum));
 	}
 });
 
@@ -106,10 +97,3 @@ clear.addEventListener("click", () => {
    currentDisplay.innerText = currentValue;
    historyDisplay.innerText = ""
 });
-
-// change the value of result
-// without pressing equal only operators clicked result is still changing
-// if firstnum is null automatically set to zero
-// remove percent in display
-// refactor code
-
