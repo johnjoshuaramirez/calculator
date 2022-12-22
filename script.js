@@ -1,86 +1,86 @@
 const container = document.querySelector(".container");
 const buttons = document.querySelector(".button-group");
-const historyDisplay = document.querySelector(".history");
-const currentDisplay = document.querySelector(".current");
+const recentScreen = document.querySelector(".history");
+const currentScreen = document.querySelector(".current");
 const del = document.querySelector(".del");
 const clear = document.querySelector(".clear");
 const numbers = document.querySelectorAll(".number");
-const operators = document.querySelectorAll(".operator");
+const operations = document.querySelectorAll(".operator");
+const equals = document.querySelector(".equals");
 
 // global variables
 
-let recentNumber = "";
-let currentNumber = "";
+let firstOperand = "";
+let secondOperand = "";
 let operator = "";
+let currentNumber = "";
 let result = "";
 
-function add(num1, num2) {
-	result = num1 + num2;
-	currentDisplay.innerText = result;
+function add(a, b) {
+	return a + b;
 }
 
-function subtract(num1, num2) {
-	result = num1 - num2;
-	currentDisplay.innerText = result;
+function subtract(a, b) {
+	return a - b;
 }
 
-function multiply(num1, num2) {
-	result = num1 * num2;
-	currentDisplay.innerText = result;
+function multiply(a, b) {
+	return a * b;
 }
 
-function divide(num1, num2) {
-	result = num1 / num2;
-	currentDisplay.innerText = result;
+function divide(a, b) {
+	return a / b;
 }
 
-function operate(operator, num1, num2) {
+function operate(operator, a, b) {
 	switch (operator) {
 		case "+":
-			add(num1, num2);
-			break;
+			return add(a, b);
 		case "-":
-			subtract(num1, num2);
-			break;
+			return subtract(a, b);
 		case "*":
-			multiply(num1, num2);
-			break;
+			return multiply(a, b);
 		case "/":
-			divide(num1, num2);
-			break;
+			return divide(a, b);
+		default:
+			return null;
 	}
 }
 
-container.addEventListener("click", e => {
-	if (e.target.classList.contains("number")) {
+numbers.forEach(number => {
+	number.addEventListener("click", e => {
 		currentNumber += e.target.innerText;
-		currentDisplay.innerText = currentNumber;
-	}
+		currentScreen.innerText = currentNumber;
+	});
 });
 
-container.addEventListener("click", e => {
-	if (e.target.classList.contains("operator")) {
-			operator = e.target.innerText;
-         recentNumber = currentNumber;
-         currentNumber = "";
-			historyDisplay.innerText = `${recentNumber} ${operator}`;
-	}
+operations.forEach(operation => {
+	operation.addEventListener("click", e => {
+		if (operator) {
+			secondOperand = currentScreen.innerText;
+			result = operate(operator, parseInt(firstOperand), parseInt(secondOperand));
+			operator = operation.innerText;
+			currentScreen.innerText = result;
+			firstOperand = result;
+			currentNumber = "";
+			console.log(firstOperand);
+			console.log(secondOperand);
+			console.log(operator);
+		} else if (!operator) {
+			firstOperand = currentScreen.innerText;
+			operator = operation.innerText;
+			currentNumber = "";
+		}
+	});
 });
 
-container.addEventListener("click", e => {
-	if (e.target.classList.contains("equals")) {
-		historyDisplay.innerText = `${recentNumber} ${operator} ${currentNumber} ${"="}`;
-		operate(operator, parseInt(recentNumber), parseInt(currentNumber));
-	}
+equals.addEventListener("click", () => {
+	secondOperand = currentScreen.innerText;
+	result = operate(operator, parseInt(firstOperand), parseInt(secondOperand));
+	currentNumber = result;
+	currentScreen.innerText = currentNumber;
 });
 
-del.addEventListener("click", () => {
-	currentNumber = current.slice(0, -1);
-	currentDisplay.innerText = current;
-});
+del.addEventListener("click", () => {});
 
-clear.addEventListener("click", () => {
-	currentNumber = "";
-	currentDisplay.innerText = "";
-	historyDisplay.innerText = "";
-});
+clear.addEventListener("click", () => {});
