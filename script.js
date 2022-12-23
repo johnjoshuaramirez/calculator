@@ -2,6 +2,7 @@ const recentScreen = document.querySelector(".history");
 const currentScreen = document.querySelector(".current");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
+const periodButton = document.querySelector(".period");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelector(".equals");
@@ -10,6 +11,16 @@ let firstOperand = "";
 let secondOperand = "";
 let operator = "";
 let resetScreen = false;
+
+periodButton.addEventListener("click", () => {
+   if (currentScreen.innerText === "0" || resetScreen) {
+      reset();
+      currentScreen.innerText += periodButton.innerText;
+      debug();
+   } else {
+      currentScreen.innerText += periodButton.innerText;
+   }
+});
 
 numberButtons.forEach(button => {
 	button.addEventListener("click", () => {
@@ -79,8 +90,8 @@ function divide(a, b) {
 }
 
 function operate(operator, a, b) {
-	a = parseInt(a);
-	b = parseInt(b);
+	a = parseFloat(a);
+	b = parseFloat(b);
 
 	switch (operator) {
 		case "+":
