@@ -44,8 +44,7 @@ body {
    font-size: 1.125rem;
    line-height: 1.5rem;
    white-space: nowrap;
-   overflow: hidden;
-   text-overflow: clip;
+   overflow-x: hidden;
 }
 
 .display .current {
@@ -55,8 +54,7 @@ body {
    line-height: 2rem;
    max-width: 200px;
    white-space: nowrap;
-   overflow: hidden;
-   text-overflow: clip;
+   overflow-x: hidden;
 }
 
 .container .history {
