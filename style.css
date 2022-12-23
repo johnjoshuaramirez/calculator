@@ -60,9 +60,11 @@ body {
 
 button {
    flex: 1;
-   border: 1px solid white;
    background-color: black;
    color: white;
+   border: 1px solid white;
+   border-left: none;
+   border-bottom: none;
 }
 
 button:hover {
