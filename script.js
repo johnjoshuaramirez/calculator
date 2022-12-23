@@ -15,7 +15,7 @@ let resetScreen = false;
 numberButtons.forEach(button => {
 	button.addEventListener("click", () => {
 		if (currentScreen.innerText === "0" || resetScreen) reset();
-      
+
 		currentScreen.innerText += button.innerText;
 	});
 });
@@ -25,11 +25,21 @@ operatorButtons.forEach(button => {
 		if (operator) result();
 
 		firstOperand = currentScreen.innerText;
-		operator = button.innerText;
+		operator = sign(button.innerText);
 		recentScreen.innerText = `${firstOperand} ${operator}`;
 		resetScreen = true;
 	});
 });
+
+function sign(button) {
+   if (button === "/") {
+      return "÷";
+   } else if (button === "*") { 
+      return "×";
+   } else {
+      return button
+   }
+}
 
 equalsButton.addEventListener("click", result);
 
