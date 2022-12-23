@@ -112,21 +112,15 @@ function reset() {
 
 
 function sign(button) {
-	if (button === "÷") {
-		return "/";
-	} else if (button === "×") {
-		return "*";
-	} else {
-		return button;
-	}
+	if (button === "÷") return "/";
+	if (button === "×") return "*";
+	if (button === "−") return "-";
+	return button
 }
 
 function convert(button) {
-	if (button === "/") {
-		return "÷";
-	} else if (button === "*") {
-		return "×";
-	} else {
-		return button;
-	}
+	if (button === "/") return "÷";
+	if (button === "*") return "×";
+	if (button === "-") return "−";
+	return button
 }

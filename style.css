@@ -122,3 +122,12 @@ button:active {
 .button-group .equals {
    flex: 1;
 }
+
+.divide,
+.times,
+.minus,
+.plus,
+.equals,
+.period {
+   font-size: 1.25rem;
+}
