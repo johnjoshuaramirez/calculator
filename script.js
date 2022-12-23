@@ -13,60 +13,46 @@ let operator = "";
 let resetScreen = false;
 
 periodButton.addEventListener("click", () => {
-   if (currentScreen.innerText === "0" || resetScreen) {
-      reset();
-      currentScreen.innerText += periodButton.innerText;
-      debug();
-   } else {
-      currentScreen.innerText += periodButton.innerText;
-   }
+	if (resetScreen) reset();
+
+	if (currentScreen.innerText === "")
+   currentScreen.innerText = "0";
+
+	if (currentScreen.innerText.includes(".")) return;
+
+   currentScreen.innerText += ".";
 });
 
 numberButtons.forEach(button => {
 	button.addEventListener("click", () => {
-		if (currentScreen.innerText === "0" || resetScreen) {
-			reset();
-			currentScreen.innerText += button.innerText;
-			debug();
-		} else {
-			currentScreen.innerText += button.innerText;
-		}
+		if (currentScreen.innerText === "0" || resetScreen) reset();
+		currentScreen.innerText += button.innerText;
 	});
 });
 
 operatorButtons.forEach(button => {
 	button.addEventListener("click", () => {
 		if (operator) result();
-      firstOperand = currentScreen.innerText;
+		firstOperand = currentScreen.innerText;
 		operator = button.innerText;
 		recentScreen.innerText = `${firstOperand} ${operator}`;
 		resetScreen = true;
-		debug();
 	});
 });
 
 equalsButton.addEventListener("click", result);
 
 deleteButton.addEventListener("click", () => {
-   currentScreen.innerText = currentScreen.innerText.toString().slice(0, -1);
+	currentScreen.innerText = currentScreen.innerText.toString().slice(0, -1);
 });
 
 clearButton.addEventListener("click", () => {
-   currentScreen.innerText = "0";
-   recentScreen.innerText = "";
-   firstOperand = "";
-   secondOperand = "";
-   operator = "";
-});
-
-function result() {
-	if (!operator || resetScreen) return;
-	secondOperand = currentScreen.innerText;
-	currentScreen.innerText = operate(operator, firstOperand, secondOperand);
-	recentScreen.innerText = `${firstOperand} ${operator} ${secondOperand} =`;
+	currentScreen.innerText = "0";
+	recentScreen.innerText = "";
+	firstOperand = "";
+	secondOperand = "";
 	operator = "";
-	debug();
-}
+});
 
 function reset() {
 	currentScreen.innerText = "";
@@ -107,9 +93,10 @@ function operate(operator, a, b) {
 	}
 }
 
-function debug() {
-	console.log(`let firstOperand = ${firstOperand}`);
-	console.log(`let secondOperand = ${secondOperand}`);
-	console.log(`let operator = ${operator}`);
-	console.log(`let reset = ${resetScreen}`);
+function result() {
+	if (!operator || resetScreen) return;
+	secondOperand = currentScreen.innerText;
+	currentScreen.innerText = operate(operator, firstOperand, secondOperand);
+	recentScreen.innerText = `${firstOperand} ${operator} ${secondOperand} =`;
+	operator = "";
 }
