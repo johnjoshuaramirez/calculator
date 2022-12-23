@@ -6,17 +6,15 @@ const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelector(".equals");
 
-// global variables
-
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
-let reset = false;
+let resetScreen = false;
 
 numberButtons.forEach(button => {
 	button.addEventListener("click", () => {
-		if (currentScreen.innerText === "0" || reset) {
-			resetCurrentScreen();
+		if (currentScreen.innerText === "0" || resetScreen) {
+			reset();
 			currentScreen.innerText += button.innerText;
 			debug();
 		} else {
@@ -31,15 +29,27 @@ operatorButtons.forEach(button => {
       firstOperand = currentScreen.innerText;
 		operator = button.innerText;
 		recentScreen.innerText = `${firstOperand} ${operator}`;
-		reset = true;
+		resetScreen = true;
 		debug();
 	});
 });
 
 equalsButton.addEventListener("click", result);
 
+deleteButton.addEventListener("click", () => {
+   currentScreen.innerText = currentScreen.innerText.toString().slice(0, -1);
+});
+
+clearButton.addEventListener("click", () => {
+   currentScreen.innerText = "0";
+   recentScreen.innerText = "";
+   firstOperand = "";
+   secondOperand = "";
+   operator = "";
+});
+
 function result() {
-	if (!operator || reset) return;
+	if (!operator || resetScreen) return;
 	secondOperand = currentScreen.innerText;
 	currentScreen.innerText = operate(operator, firstOperand, secondOperand);
 	recentScreen.innerText = `${firstOperand} ${operator} ${secondOperand} =`;
@@ -47,9 +57,9 @@ function result() {
 	debug();
 }
 
-function resetCurrentScreen() {
+function reset() {
 	currentScreen.innerText = "";
-	reset = false;
+	resetScreen = false;
 }
 
 function add(a, b) {
@@ -90,5 +100,5 @@ function debug() {
 	console.log(`let firstOperand = ${firstOperand}`);
 	console.log(`let secondOperand = ${secondOperand}`);
 	console.log(`let operator = ${operator}`);
-	console.log(`let reset = ${reset}`);
+	console.log(`let reset = ${resetScreen}`);
 }
