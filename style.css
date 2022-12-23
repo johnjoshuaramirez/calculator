@@ -18,8 +18,8 @@ body {
 .container {
    background-color: black;
 
-   min-width: 260px;
-   height: 400px;
+   min-width: 234px;
+   height: 360px;
    border: 1px solid white;
    display: flex;
    flex-direction: column;
