@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 * {
    margin: 0;
    padding: 0;
-   
+
 }
 
 body {
@@ -23,15 +25,29 @@ body {
    flex-direction: column;
 }
 
-.display {
-   border-bottom: 1px solid black;
-   color: white;
-}
-
 .container .display {
    flex: 1;
    display: flex;
    flex-direction: column;
+
+   border-bottom: 1px solid black;
+   color: white;
+   font-family: 'Poppins', sans-serif;
+   padding: 0 1rem;
+}
+
+.display .history {
+   display: flex;
+   align-items: center;
+   font-size: 1.125rem;
+   line-height: 1.5rem;
+}
+
+.display .current {
+   display: flex;
+   align-items: center;
+   font-size: 1.5rem;
+   line-height: 2rem;
 }
 
 .container .history {
@@ -44,7 +60,7 @@ body {
    flex: 1.5;
    display: flex;
    justify-content: flex-end;
-   
+
 }
 
 .container .button-group {
@@ -77,6 +93,22 @@ button:active {
 
 .button-group div:last-child {
    display: flex;
+}
+
+.button-group .delete {
+   border-right: 0px;
+}
+
+.button-group .operator {
+   border-right: 0px;
+}
+
+.button-group .clear {
+   color: rgb(300, 100, 100);
+}
+
+.button-group .delete {
+   color: rgb(300, 100, 100);
 }
 
 .button-group .zero {
