@@ -12,19 +12,10 @@ let secondOperand = "";
 let operator = "";
 let resetScreen = false;
 
-periodButton.addEventListener("click", () => {
-	if (resetScreen) reset();
-
-	if (currentScreen.innerText === "") currentScreen.innerText = "0";
-
-	if (currentScreen.innerText.includes(".")) return;
-
-	currentScreen.innerText += ".";
-});
-
 numberButtons.forEach(button => {
 	button.addEventListener("click", () => {
 		if (currentScreen.innerText === "0" || resetScreen) reset();
+      
 		currentScreen.innerText += button.innerText;
 	});
 });
@@ -32,6 +23,7 @@ numberButtons.forEach(button => {
 operatorButtons.forEach(button => {
 	button.addEventListener("click", () => {
 		if (operator) result();
+
 		firstOperand = currentScreen.innerText;
 		operator = button.innerText;
 		recentScreen.innerText = `${firstOperand} ${operator}`;
@@ -40,6 +32,14 @@ operatorButtons.forEach(button => {
 });
 
 equalsButton.addEventListener("click", result);
+
+periodButton.addEventListener("click", () => {
+	if (resetScreen) reset();
+	if (currentScreen.innerText === "") currentScreen.innerText = "0";
+	if (currentScreen.innerText.includes(".")) return;
+
+	currentScreen.innerText += ".";
+});
 
 deleteButton.addEventListener("click", () => {
 	currentScreen.innerText = currentScreen.innerText.toString().slice(0, -1);
@@ -52,11 +52,6 @@ clearButton.addEventListener("click", () => {
 	secondOperand = "";
 	operator = "";
 });
-
-function reset() {
-	currentScreen.innerText = "";
-	resetScreen = false;
-}
 
 function add(a, b) {
 	return a + b;
@@ -94,7 +89,6 @@ function operate(operator, a, b) {
 
 function result() {
 	if (!operator || resetScreen) return;
-
    if (operator === "/" && currentScreen.innerText === "0") {
       alert(`Error: ${firstOperand} cannot be divided by 0`);
       recentScreen.innerText = `${firstOperand} ${operator}`;
@@ -109,4 +103,9 @@ function result() {
 
 function roundNumber(number) {
    return Math.round(number * 1000) / 1000;
+}
+
+function reset() {
+	currentScreen.innerText = "";
+	resetScreen = false;
 }
