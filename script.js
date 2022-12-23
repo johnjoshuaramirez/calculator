@@ -15,12 +15,11 @@ let resetScreen = false;
 periodButton.addEventListener("click", () => {
 	if (resetScreen) reset();
 
-	if (currentScreen.innerText === "")
-   currentScreen.innerText = "0";
+	if (currentScreen.innerText === "") currentScreen.innerText = "0";
 
 	if (currentScreen.innerText.includes(".")) return;
 
-   currentScreen.innerText += ".";
+	currentScreen.innerText += ".";
 });
 
 numberButtons.forEach(button => {
@@ -95,8 +94,19 @@ function operate(operator, a, b) {
 
 function result() {
 	if (!operator || resetScreen) return;
+
+   if (operator === "/" && currentScreen.innerText === "0") {
+      alert(`Error: ${firstOperand} cannot be divided by 0`);
+      recentScreen.innerText = `${firstOperand} ${operator}`;
+      return
+   }
+
 	secondOperand = currentScreen.innerText;
-	currentScreen.innerText = operate(operator, firstOperand, secondOperand);
+	currentScreen.innerText = roundNumber(operate(operator, firstOperand, secondOperand));
 	recentScreen.innerText = `${firstOperand} ${operator} ${secondOperand} =`;
 	operator = "";
+}
+
+function roundNumber(number) {
+   return Math.round(number * 1000) / 1000;
 }
