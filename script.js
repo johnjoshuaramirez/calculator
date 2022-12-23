@@ -8,45 +8,48 @@ const equalsButton = document.querySelector(".equals");
 
 // global variables
 
-let recent = "";
-let currentNumber = "";
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
+let reset = false;
 
-//
-// deleteButton.addEventListener("click", deleteNumber);
-// clearButton.addEventListener("click", clearNumber);
+numberButtons.forEach(button => {
+	button.addEventListener("click", () => {
+		if (currentScreen.innerText === "0" || reset) {
+			resetCurrentScreen();
+			currentScreen.innerText += button.innerText;
+			debug();
+		} else {
+			currentScreen.innerText += button.innerText;
+		}
+	});
+});
 
-numberButtons.forEach(button =>
-	button.addEventListener("click", () => appendNumber(button.innerText))
-);
+operatorButtons.forEach(button => {
+	button.addEventListener("click", () => {
+		if (operator) result();
+      firstOperand = currentScreen.innerText;
+		operator = button.innerText;
+		recentScreen.innerText = `${firstOperand} ${operator}`;
+		reset = true;
+		debug();
+	});
+});
 
-operatorButtons.forEach(button =>
-	button.addEventListener("click", () => setOperator(button.innerText))
-);
+equalsButton.addEventListener("click", result);
 
-equalsButton.addEventListener("click", resolve);
-
-function appendNumber(number) {
-	currentNumber += number;
-	currentScreen.innerText = currentNumber;
-	firstOperand ? secondOperand = currentNumber : firstOperand;
+function result() {
+	if (!operator || reset) return;
+	secondOperand = currentScreen.innerText;
+	currentScreen.innerText = operate(operator, firstOperand, secondOperand);
+	recentScreen.innerText = `${firstOperand} ${operator} ${secondOperand} =`;
+	operator = "";
+	debug();
 }
 
-function setOperator(symbol) {
-	firstOperand += currentNumber;
-	operator = symbol;
-	currentNumber = "";
-}
-
-function resolve() {
-   console.log(firstOperand, operator, secondOperand);
-	currentNumber = operate(operator, firstOperand, secondOperand);
-   currentScreen.innerText = currentNumber;
-   firstOperand = currentNumber;
-   secondOperand = "";
-   currentNumber = "";
+function resetCurrentScreen() {
+	currentScreen.innerText = "";
+	reset = false;
 }
 
 function add(a, b) {
@@ -66,8 +69,8 @@ function divide(a, b) {
 }
 
 function operate(operator, a, b) {
-	a = Number(a);
-	b = Number(b);
+	a = parseInt(a);
+	b = parseInt(b);
 
 	switch (operator) {
 		case "+":
@@ -81,4 +84,11 @@ function operate(operator, a, b) {
 		default:
 			return null;
 	}
+}
+
+function debug() {
+	console.log(`let firstOperand = ${firstOperand}`);
+	console.log(`let secondOperand = ${secondOperand}`);
+	console.log(`let operator = ${operator}`);
+	console.log(`let reset = ${reset}`);
 }
