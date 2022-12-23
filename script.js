@@ -26,20 +26,10 @@ operatorButtons.forEach(button => {
 
 		firstOperand = currentScreen.innerText;
 		operator = sign(button.innerText);
-		recentScreen.innerText = `${firstOperand} ${operator}`;
+		recentScreen.innerText = `${firstOperand} ${convert(operator)}`;
 		resetScreen = true;
 	});
 });
-
-function sign(button) {
-   if (button === "/") {
-      return "÷";
-   } else if (button === "*") { 
-      return "×";
-   } else {
-      return button
-   }
-}
 
 equalsButton.addEventListener("click", result);
 
@@ -99,23 +89,44 @@ function operate(operator, a, b) {
 
 function result() {
 	if (!operator || resetScreen) return;
-   if (operator === "/" && currentScreen.innerText === "0") {
-      alert(`Error: ${firstOperand} cannot be divided by 0`);
-      recentScreen.innerText = `${firstOperand} ${operator}`;
-      return
-   }
+	if (operator === "/" && currentScreen.innerText === "0") {
+		alert(`Error: ${firstOperand} cannot be divided by 0`);
+		recentScreen.innerText = `${firstOperand} ${convert(operator)}`;
+		return;
+	}
 
 	secondOperand = currentScreen.innerText;
 	currentScreen.innerText = roundNumber(operate(operator, firstOperand, secondOperand));
-	recentScreen.innerText = `${firstOperand} ${operator} ${secondOperand} =`;
+	recentScreen.innerText = `${firstOperand} ${convert(operator)} ${secondOperand} =`;
 	operator = "";
 }
 
 function roundNumber(number) {
-   return Math.round(number * 1000) / 1000;
+	return Math.round(number * 1000) / 1000;
 }
 
 function reset() {
 	currentScreen.innerText = "";
 	resetScreen = false;
+}
+
+
+function sign(button) {
+	if (button === "÷") {
+		return "/";
+	} else if (button === "×") {
+		return "*";
+	} else {
+		return button;
+	}
+}
+
+function convert(button) {
+	if (button === "/") {
+		return "÷";
+	} else if (button === "*") {
+		return "×";
+	} else {
+		return button;
+	}
 }
