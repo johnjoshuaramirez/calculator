@@ -90,11 +90,11 @@ button {
 }
 
 button:hover {
-   background-color: grey;
+   background-color: rgba(128, 128, 128, 0.349);
 }
 
 button:active {
-   background-color: ghostwhite;
+   background-color: rgba(300, 100, 100, 0.5);
 }
 
 .button-group div:last-child {
@@ -137,3 +137,5 @@ button:active {
 .period {
    font-size: 1.25rem;
 }
+
+
